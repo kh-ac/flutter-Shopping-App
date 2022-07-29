@@ -1,6 +1,6 @@
 # flutter_sqlite
 
-A new Flutter project.
+Simple flutter application which uses SQLite Database 
 
 ## Getting Started
 
