@@ -19,8 +19,8 @@ class ShoppingListDialog extends StatelessWidget {
     DbHelper dbHelper = DbHelper();
 
     if (!isNew) {
-      shoppingList.name = nameController.text;
-      shoppingList.priority = int.parse(priorityController.text);
+      nameController.text = shoppingList.name;
+      priorityController.text = shoppingList.priority.toString();
     }
 
     return AlertDialog(
