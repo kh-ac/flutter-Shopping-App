@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_sqlite/models/shopping_list.dart';
+import 'package:flutter_sqlite/routes/list_items_screen.dart';
 import 'package:flutter_sqlite/utils/db_helper.dart';
 import 'package:flutter_sqlite/widgets/shopping_list_dialog.dart';
 
@@ -19,7 +20,7 @@ class _ShoppingListsScreenState extends State<ShoppingListsScreen> {
 
   //
   Future<void> getData() async {
-    await dbHelper.openDb();
+    
     shoppingLists = await dbHelper.getLists();
     setState(() {
       shoppingLists = shoppingLists;
@@ -40,27 +41,69 @@ class _ShoppingListsScreenState extends State<ShoppingListsScreen> {
           //
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return Card(
+              return Dismissible(
                 //
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-
-                //
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                elevation: 8,
+                key: Key(shoppingLists[index].id.toString()),
 
                 //
-                child: ListTile(
+                direction: DismissDirection.endToStart,
+
+                //
+                onDismissed: (DismissDirection dismissDirection) {
                   //
-                  leading: CircleAvatar(
-                      child: Text(shoppingLists[index].priority.toString())),
+                  dbHelper.deleteList(shoppingLists[index]);
 
                   //
-                  title: Text(shoppingLists[index].name),
+                  setState(() {
+                    shoppingLists.removeAt(index);
+                  });
+                },
+
+                //
+                child: Card(
+                  //
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
 
                   //
-                  trailing: const Icon(Icons.edit),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  elevation: 8,
+
+                  //
+                  child: ListTile(
+                    //
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return ListItemsScreen(
+                            shoppingList: shoppingLists[index]);
+                      }));
+                    },
+                    //
+                    leading: CircleAvatar(
+                        child: Text(shoppingLists[index].priority.toString())),
+
+                    //
+                    title: Text(shoppingLists[index].name),
+
+                    //
+                    trailing: IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return ShoppingListDialog(
+                                  shoppingList: ShoppingList(
+                                      id: shoppingLists[index].id,
+                                      name: shoppingLists[index].name,
+                                      priority: shoppingLists[index].priority),
+                                  isNew: false);
+                            });
+                      },
+                    ),
+                  ),
                 ),
               );
             },
