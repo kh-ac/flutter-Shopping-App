@@ -1,3 +1,4 @@
+import 'package:flutter_sqlite/models/list_item.dart';
 import 'package:flutter_sqlite/models/shopping_list.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -51,6 +52,8 @@ class DbHelper {
 
   //
   Future<List<ShoppingList>> getLists() async {
+    db = await openDb();
+
     final List<Map<String, dynamic>> lists = await db!.query("lists");
 
     return List.generate(lists.length, (index) {
@@ -69,8 +72,49 @@ class DbHelper {
     return id;
   }
 
+  Future<int> deleteList(ShoppingList list) async {
+    db = await openDb();
+    int count =
+        await db!.delete("items", where: "idList = ?", whereArgs: [list.id]);
+    count = await db!.delete("lists", where: "id = ?", whereArgs: [list.id]);
+    return count;
+  }
+
   //
-  Future<void> deleteDb(String db) async {
-    await deleteDatabase(join(await getDatabasesPath(), "${db}.db"));
+  Future<void> deleteDb(String dbName) async {
+    
+
+    await deleteDatabase(join(await getDatabasesPath(), "${dbName}.db"));
+  }
+
+  //
+  Future<List<ListItem>> getItems(int idList) async {
+    db = await openDb();
+    List<Map<String, dynamic>> items =
+        await db!.query("items", where: "idList = ?", whereArgs: [idList]);
+
+    return List.generate(items.length, (index) {
+      return ListItem(
+          id: items[index]["id"],
+          idList: items[index]["idList"],
+          name: items[index]["name"],
+          quantity: items[index]["quantity"],
+          note: items[index]["note"]);
+    });
+  }
+
+  //
+  Future<int> insertItem(ListItem listItem) async {
+    db = await openDb();
+    int id = await db!.insert("items", listItem.toMap());
+    return id;
+  }
+
+  //
+  Future<int> deleteItem(int id) async {
+    db = await openDb();
+
+    int result = await db!.delete("items", where: "id= ?", whereArgs: [id]);
+    return result;
   }
 }
