@@ -20,7 +20,6 @@ class _ShoppingListsScreenState extends State<ShoppingListsScreen> {
 
   //
   Future<void> getData() async {
-    
     shoppingLists = await dbHelper.getLists();
     setState(() {
       shoppingLists = shoppingLists;
@@ -33,7 +32,11 @@ class _ShoppingListsScreenState extends State<ShoppingListsScreen> {
     return Scaffold(
       //
       appBar: AppBar(
-        title: Text("Shopping Lists"),
+        title: Text(
+          "Shopping Lists",
+          style: Theme.of(context).textTheme.headline4,
+        ),
+        centerTitle: true,
       ),
 
       body: LayoutBuilder(
@@ -82,13 +85,20 @@ class _ShoppingListsScreenState extends State<ShoppingListsScreen> {
                     },
                     //
                     leading: CircleAvatar(
-                        child: Text(shoppingLists[index].priority.toString())),
+                        backgroundColor:
+                            Theme.of(context).primaryColor.withOpacity(0.8),
+                        child: Text(
+                          shoppingLists[index].priority.toString(),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        )),
 
                     //
-                    title: Text(shoppingLists[index].name),
+                    title: Text(shoppingLists[index].name,
+                        style: Theme.of(context).textTheme.bodyText1),
 
                     //
                     trailing: IconButton(
+                      color: Theme.of(context).accentColor,
                       icon: const Icon(Icons.edit),
                       onPressed: () {
                         showDialog(
