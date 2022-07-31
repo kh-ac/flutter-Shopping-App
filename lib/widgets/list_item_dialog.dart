@@ -27,7 +27,7 @@ class ListItemDialog extends StatelessWidget {
 
     return AlertDialog(
       //
-      title: Text(isNew ? "New Shopping List" : "Edit Shopping List"),
+      title: Text(isNew ? "New Item " : "Edit Item "),
 
       //
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
