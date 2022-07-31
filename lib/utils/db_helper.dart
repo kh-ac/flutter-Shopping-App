@@ -11,6 +11,9 @@ class DbHelper {
   Database? db;
 
   //
+  
+
+  //
   final CREATE_LISTS_TABLE =
       "CREATE TABLE lists (id INTEGER PRIMARY KEY , name TEXT , priority INTEGER)";
   final CREATE_ITEMS_TABLE =
@@ -54,7 +57,8 @@ class DbHelper {
   Future<List<ShoppingList>> getLists() async {
     db = await openDb();
 
-    final List<Map<String, dynamic>> lists = await db!.query("lists");
+    final List<Map<String, dynamic>> lists =
+        await db!.query("lists", orderBy: "priority");
 
     return List.generate(lists.length, (index) {
       return ShoppingList(
@@ -82,8 +86,6 @@ class DbHelper {
 
   //
   Future<void> deleteDb(String dbName) async {
-    
-
     await deleteDatabase(join(await getDatabasesPath(), "${dbName}.db"));
   }
 
@@ -106,7 +108,8 @@ class DbHelper {
   //
   Future<int> insertItem(ListItem listItem) async {
     db = await openDb();
-    int id = await db!.insert("items", listItem.toMap());
+    int id = await db!.insert("items", listItem.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
     return id;
   }
 
