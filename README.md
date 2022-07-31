@@ -11,6 +11,9 @@ The App has two screens, the first one is for lists, the second is for items con
 
 <br>
 
+The first Screen which is the **Lists Screen** displays the lists by their name ordered by their priorities.\
+By Clicking on a particulair list, a new screen containig the **items** contained on the list will appear which shows items name , quantity and notes. 
+
 # DbHelper Class
 `DbHelper` Class contains all the methods related to the interaction with our Database and contains  **CRUD** operations (Create , Read , Update , Delete).
 
