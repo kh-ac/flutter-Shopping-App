@@ -33,7 +33,9 @@ class _ListItemsScreenState extends State<ListItemsScreen> {
     return Scaffold(
       //
       appBar: AppBar(
-        title: Text(widget.shoppingList.name),
+        title: Text(widget.shoppingList.name,
+            style: Theme.of(context).textTheme.headline4),
+        centerTitle: true,
       ),
 
       body: LayoutBuilder(
@@ -78,12 +80,25 @@ class _ListItemsScreenState extends State<ListItemsScreen> {
                     //
 
                     //
+                    leading: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).primaryColor.withOpacity(0.8),
+                        child: Text(items[index].quantity,
+                            style: Theme.of(context).textTheme.bodyText2)),
 
                     //
-                    title: Text(items[index].name),
+                    title: Text(
+                      items[index].name,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+
+                    //
+                    subtitle: Text(items[index].note,
+                        style: Theme.of(context).textTheme.bodyText2),
 
                     //
                     trailing: IconButton(
+                      color: Theme.of(context).accentColor,
                       icon: const Icon(Icons.edit),
                       onPressed: () {
                         showDialog(
