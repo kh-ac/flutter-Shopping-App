@@ -21,6 +21,23 @@ The App has two screens, the first one is for lists, the second is for items con
         // The SQLite Databse
         Database? db;
 
+### Creating the Database
+    Future<Database?> openDb() async {
+        if (db == null) {
+        //
+        db = await openDatabase(join(await getDatabasesPath (), "shopping.db"),onCreate: (database, version) {
+            // Creating lists table
+            database.execute(CREATE_LISTS_TABLE);
+
+            // Creating items table
+            database.execute(CREATE_ITEMS_TABLE);
+            }, 
+        version: version);
+        }
+
+        return db;
+    } 
+
 ## About the Database
 The Database has tow _tables_: **lists** table and **items** table.
 
