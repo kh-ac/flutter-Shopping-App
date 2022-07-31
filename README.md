@@ -7,14 +7,7 @@ While Shopping, you might forget things now and then , this App will help resolv
 
 The App has two screens, the first one is for lists, the second is for items contained in each list.  
 
-<img src = "APP/1.jpg" height = "500">
-<img src = "APP/2.jpg" height = "500">
-<img src = "APP/3.jpg" height = "500">
-<img src = "APP/4.jpg" height = "500">
-<img src = "APP/5.jpg" height = "500">
-<img src = "APP/6.jpg" height = "500">
-<img src = "APP/7.jpg" height = "500">
-<img src = "APP/8.jpg" height = "500">
+<img src = "APP/1.jpg" height = "500"> <img src = "APP/2.jpg" height = "500"> <img src = "APP/3.jpg" height = "500"> <img src = "APP/4.jpg" height = "500"> <img src = "APP/5.jpg" height = "500"> <img src = "APP/6.jpg" height = "500"> <img src = "APP/7.jpg" height = "500"> <img src = "APP/8.jpg" height = "500">
 
 <br>
 
@@ -26,7 +19,7 @@ The Database has tow _tables_: **lists** table and **items** table.
 
     final CREATE_LISTS_TABLE =
       "CREATE TABLE lists (id INTEGER PRIMARY KEY , name TEXT , priority INTEGER)";
-      
+
     final CREATE_ITEMS_TABLE =
       "CREATE TABLE items (id INTEGER PRIMARY KEY , idList INTEGER , name TEXT , quantity TEXT , note TEXT , " +
           " FOREIGN KEY(idList) REFERENCES lists(id))";
