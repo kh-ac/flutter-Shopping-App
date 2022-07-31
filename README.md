@@ -14,6 +14,13 @@ The App has two screens, the first one is for lists, the second is for items con
 # DbHelper Class
 `DbHelper` Class contains all the methods related to the interaction with our Database and contains  **CRUD** operations (Create , Read , Update , Delete).
 
+    class DbHelper {
+        // Database Version
+        final int version = 1;
+
+        // The SQLite Databse
+        Database? db;
+
 ## About the Database
 The Database has tow _tables_: **lists** table and **items** table.
 
