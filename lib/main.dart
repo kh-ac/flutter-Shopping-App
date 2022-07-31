@@ -19,19 +19,21 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       theme: ThemeData(
-        
-        //
-        primaryColor: Colors.blueGrey,
-        primarySwatch: Colors.blueGrey,
-        accentColor: Colors.teal,
+          //
+          primaryColor: Colors.blueGrey,
+          primarySwatch: Colors.blueGrey,
+          accentColor: Colors.teal,
+          scaffoldBackgroundColor: Color(0xFFCFD8DC),
+          textTheme: const TextTheme(
 
-        
-        
-        
-
-        ),
+              //
+              headline4: TextStyle(
+                  fontFamily: "RobotoCondensed",
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+              bodyText1: TextStyle(fontFamily: "Raleway", fontSize: 20),
+              bodyText2: TextStyle(fontFamily: "Raleway", fontSize: 16))),
       //
-      
 
       //
       home: ShoppingListsScreen(),
