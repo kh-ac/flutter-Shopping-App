@@ -54,7 +54,7 @@ The Database has tow _tables_: **lists** table and **items** table.
 
 
 ### Creating and Updating Data:
-The parametre `conflictAlgorithm: ConflictAlgorithm.replace`,This method allows us to create a List if it's new and update it if it exists already.
+The parametre `conflictAlgorithm: ConflictAlgorithm.replace` allows the `insertList` method to create a List if it's new and update it if it exists already.
 
     Future<int> insertList(ShoppingList list) async{
         db = await openDb();
